@@ -145,6 +145,17 @@ else()
    list(APPEND LIBRARIES highs::highs)
 endif()
 
+# OSQP
+find_package(osqp REQUIRED)
+if (NOT ${OSQP_FOUND})
+   message(WARNING "Optional library OSQP was not found.")
+else()
+   list(APPEND UNO_SOURCE_FILES uno/solvers/OSQP/OSQPSolver.cpp)
+   list(APPEND TESTS_UNO_SOURCE_FILES unotest/functional_tests/OSQPSolverTests.cpp)
+   list(APPEND LIBRARIES osqp::osqp)
+   message("OSQP was found.")
+endif()
+
 # MUMPS
 find_package(MUMPS)
 if(NOT MUMPS_LIBRARY)
